@@ -1,0 +1,133 @@
+Elm.Bingo = Elm.Bingo || {};
+Elm.Bingo.make = function (_elm) {
+   "use strict";
+   _elm.Bingo = _elm.Bingo || {};
+   if (_elm.Bingo.values)
+   return _elm.Bingo.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "Bingo",
+   $Basics = Elm.Basics.make(_elm),
+   $Html = Elm.Html.make(_elm),
+   $Html$Attributes = Elm.Html.Attributes.make(_elm),
+   $Html$Events = Elm.Html.Events.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $StartApp = Elm.StartApp.make(_elm),
+   $String = Elm.String.make(_elm);
+   var update = F2(function (action,
+   model) {
+      return function () {
+         switch (action.ctor)
+         {case "NoOp": return model;
+            case "Sort":
+            return _U.replace([["entries"
+                               ,A2($List.sortBy,
+                               function (_) {
+                                  return _.points;
+                               },
+                               model.entries)]],
+              model);}
+         _U.badCase($moduleName,
+         "between lines 76 and 80");
+      }();
+   });
+   var Sort = {ctor: "Sort"};
+   var NoOp = {ctor: "NoOp"};
+   var newEntry = F3(function (phrase,
+   points,
+   id) {
+      return {_: {}
+             ,id: id
+             ,phrase: phrase
+             ,points: points
+             ,wasSpoken: false};
+   });
+   var initialModel = {_: {}
+                      ,entries: _L.fromArray([A3(newEntry,
+                                             "Future-Proof",
+                                             100,
+                                             1)
+                                             ,A3(newEntry,
+                                             "In The Cloud",
+                                             300,
+                                             3)
+                                             ,A3(newEntry,
+                                             "Doing Agile",
+                                             200,
+                                             2)
+                                             ,A3(newEntry,
+                                             "Rock-Star Ninja",
+                                             400,
+                                             4)])};
+   var entryItem = function (entry) {
+      return A2($Html.li,
+      _L.fromArray([]),
+      _L.fromArray([A2($Html.span,
+                   _L.fromArray([$Html$Attributes.$class("phrase")]),
+                   _L.fromArray([$Html.text(entry.phrase)]))
+                   ,A2($Html.span,
+                   _L.fromArray([$Html$Attributes.$class("points")]),
+                   _L.fromArray([$Html.text($Basics.toString(entry.points))]))]));
+   };
+   var entryList = function (entries) {
+      return A2($Html.ul,
+      _L.fromArray([]),
+      A2($List.map,
+      entryItem,
+      entries));
+   };
+   var pageFooter = A2($Html.footer,
+   _L.fromArray([]),
+   _L.fromArray([A2($Html.a,
+   _L.fromArray([$Html$Attributes.href("http://brandonrichey.com")]),
+   _L.fromArray([$Html.text("My Great Blog")]))]));
+   var title = F2(function (message,
+   times) {
+      return $Html.text($String.trimRight($String.repeat(times)($String.toUpper(A2($Basics._op["++"],
+      message,
+      " ")))));
+   });
+   var pageHeader = A2($Html.h1,
+   _L.fromArray([$Html$Attributes.id("logo")
+                ,$Html$Attributes.$class("classy")]),
+   _L.fromArray([A2(title,
+   "bingo!",
+   3)]));
+   var view = F2(function (address,
+   model) {
+      return A2($Html.div,
+      _L.fromArray([$Html$Attributes.id("container")]),
+      _L.fromArray([pageHeader
+                   ,entryList(model.entries)
+                   ,A2($Html.button,
+                   _L.fromArray([$Html$Attributes.$class("sort")
+                                ,A2($Html$Events.onClick,
+                                address,
+                                Sort)]),
+                   _L.fromArray([$Html.text("Sort")]))
+                   ,pageFooter]));
+   });
+   var main = $StartApp.start({_: {}
+                              ,model: initialModel
+                              ,update: update
+                              ,view: view});
+   _elm.Bingo.values = {_op: _op
+                       ,title: title
+                       ,pageHeader: pageHeader
+                       ,pageFooter: pageFooter
+                       ,entryItem: entryItem
+                       ,entryList: entryList
+                       ,view: view
+                       ,newEntry: newEntry
+                       ,initialModel: initialModel
+                       ,NoOp: NoOp
+                       ,Sort: Sort
+                       ,update: update
+                       ,main: main};
+   return _elm.Bingo.values;
+};
