@@ -10,44 +10,43 @@ Elm.Repl.make = function (_elm) {
    _L = _N.List.make(_elm),
    $moduleName = "Repl",
    $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
    $List = Elm.List.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
    $Result = Elm.Result.make(_elm),
-   $Signal = Elm.Signal.make(_elm),
-   $String = Elm.String.make(_elm);
+   $Signal = Elm.Signal.make(_elm);
    var tsol = {ctor: "_Tuple0"};
-   var triple = function (number) {
-      return number * 3;
-   };
-   var names = _L.fromArray(["larry"
-                            ,"moe"
-                            ,"curly"]);
+   var numbers = _L.range(-2,3);
    var multiply = F2(function (x,
    y) {
       return x * y;
    });
-   var entry = {_: {}
-               ,id: 1
-               ,phrase: "Future-Proof"
-               ,points: 100
-               ,wasSpoken: false};
-   var entry2 = _U.replace([["points"
-                            ,500]],
-   entry);
-   var deltron3030 = A2($List.map,
-   $String.length,
-   names);
-   var clonedEntry = _U.replace([["points"
-                                 ,200]
-                                ,["wasSpoken",true]],
-   entry);
+   var triple = multiply(2);
+   var multiplt = F2(function (x,
+   y) {
+      return x * y;
+   });
+   var multiple = F2(function (x,
+   y) {
+      return x * y;
+   });
+   var isNegative = function (n) {
+      return _U.cmp(n,0) < 0;
+   };
+   var add = F2(function (x,y) {
+      return A2($Debug.log,
+      "Adding ",
+      x + y);
+   });
+   var deltron3030 = A2(add,3,4);
    _elm.Repl.values = {_op: _op
-                      ,clonedEntry: clonedEntry
+                      ,add: add
                       ,deltron3030: deltron3030
-                      ,entry: entry
-                      ,entry2: entry2
+                      ,isNegative: isNegative
+                      ,multiple: multiple
+                      ,multiplt: multiplt
                       ,multiply: multiply
-                      ,names: names
+                      ,numbers: numbers
                       ,triple: triple
                       ,tsol: tsol};
    return _elm.Repl.values;
